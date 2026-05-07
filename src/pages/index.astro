@@ -48,6 +48,15 @@ const ogImage       = new URL(heroImage.src, Astro.url).href;
 
     {/* Clicky analytics — anonymous, no cookie banner needed for US traffic. */}
     <script async is:inline data-id="101381681" src="//in.getclicky.com/101381681ns.js"></script>
+
+    {/* Google Analytics 4 (gtag.js) */}
+    <script async is:inline src="https://www.googletagmanager.com/gtag/js?id=G-L8BF6D6CMQ"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L8BF6D6CMQ');
+    </script>
   </head>
 
   <body class="font-lp-body bg-white text-lp-ink antialiased text-[16px] leading-[1.6]">

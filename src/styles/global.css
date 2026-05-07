@@ -146,11 +146,15 @@ blockquote {
   hanging-punctuation: first last;
 }
 
-/* Balanced headlines using display family */
-h1, h2, h3, h4 {
-  text-wrap: balance;
-  font-family: var(--font-display);
-  color: var(--color-ink);
+/* Balanced headlines using display family.
+   Wrapped in @layer base so Tailwind utilities (text-white, font-lp-display, etc.)
+   can override these defaults — unlayered CSS would otherwise beat all utilities. */
+@layer base {
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+    font-family: var(--font-display);
+    color: var(--color-ink);
+  }
 }
 
 /* ─── Utility overrides ──────────────────────────────────────────────────── */
