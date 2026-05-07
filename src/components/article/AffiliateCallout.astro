@@ -1,0 +1,78 @@
+---
+import { productsBySlug } from '../../data/products';
+
+interface Props {
+  productSlug: string;
+  context?:    string;  // one-line why-this-matters note
+}
+
+const { productSlug, context } = Astro.props;
+const product = productsBySlug[productSlug];
+
+if (!product) {
+  throw new Error(`AffiliateCallout: no product found for slug "${productSlug}"`);
+}
+
+// Pick first affiliate link as primary CTA
+const primaryLink = product.affiliateLinks[0];
+
+const trackUrl = (url: string) => {
+  const sep = url.includes('?') ? '&' : '?';
+  return `${url}${sep}ref=cappuccino`;
+};
+---
+
+<aside class="my-10 border-t border-b border-espresso/15 py-6">
+  <p class="small-caps font-body text-xs text-espresso/45 tracking-widest mb-3">
+    We Recommend
+  </p>
+
+  <div class="flex items-baseline justify-between gap-6 flex-wrap">
+    <div>
+      <p class="font-display text-xl text-ink leading-snug">
+        {product.brand} {product.name}
+        <span class="font-body text-sm text-espresso/50 ml-2">{product.priceRange}</span>
+      </p>
+      {context && (
+        <p class="font-body text-sm text-espresso/70 mt-1 max-w-[52ch]">{context}</p>
+      )}
+    </div>
+
+    {primaryLink && (
+      <a
+        href={trackUrl(primaryLink.url)}
+        rel="sponsored nofollow"
+        target="_blank"
+        class="
+          inline-block font-body text-sm text-bone bg-espresso
+          px-4 py-2 hover:bg-ink transition-colors duration-150 whitespace-nowrap
+        "
+      >
+        Buy at {primaryLink.retailer} &rarr;
+      </a>
+    )}
+  </div>
+
+  {product.affiliateLinks.length > 1 && (
+    <p class="font-body text-xs text-espresso/40 mt-4">
+      Also at:{' '}
+      {product.affiliateLinks.slice(1).map((link, i) => (
+        <>
+          <a
+            href={trackUrl(link.url)}
+            rel="sponsored nofollow"
+            target="_blank"
+            class="underline underline-offset-4 decoration-espresso/25 hover:text-ink transition-colors duration-150"
+          >
+            {link.retailer}
+          </a>
+          {i < product.affiliateLinks.length - 2 && ', '}
+        </>
+      ))}
+    </p>
+  )}
+
+  <p class="font-body text-xs text-espresso/35 mt-3">
+    Affiliate link — we earn a small commission at no cost to you.
+  </p>
+</aside>

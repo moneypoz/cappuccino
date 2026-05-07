@@ -1,0 +1,23 @@
+---
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+---
+
+<!--
+  Desktop (xl+): float right, negative right margin pushes element outside 65ch prose
+  so the float creates no text-exclusion area inside the prose column.
+  Mobile: full width, separated by border-top rule.
+-->
+<aside class="
+  my-8
+  xl:float-right xl:clear-right
+  xl:w-[210px] xl:-mr-[242px] xl:ml-10 xl:mt-1
+">
+  <div class="border-t-2 border-espresso/20 pt-4">
+    <p class="font-display italic text-xl text-ink leading-[1.35]">
+      {text}
+    </p>
+  </div>
+</aside>

@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import HeroSection      from '../components/landing/HeroSection.astro';
+import StatsBand        from '../components/landing/StatsBand.astro';
+import FeatureGrid      from '../components/landing/FeatureGrid.astro';
+import IncludedSection  from '../components/landing/IncludedSection.astro';
+import ReviewsSection   from '../components/landing/ReviewsSection.astro';
+import FinalCTA         from '../components/landing/FinalCTA.astro';
+import heroImage        from '../assets/breville-hero.png';
+
+const title         = "The Best Cappuccino Machine | Amazon's Choice — cappuccino.io";
+const description   = "Amazon's Choice for cappuccino machines. Built-in grinder, real steam wand, decade-long build quality. The Breville Barista Express, reviewed.";
+const affiliateHref = 'https://amzn.to/4uypdmM';
+const canonicalURL  = Astro.url.href;
+const ogImage       = new URL(heroImage.src, Astro.url).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:url"         content={canonicalURL} />
+    <meta name="twitter:card"       content="summary_large_image" />
+    <meta name="twitter:image"      content={ogImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    {/* Playfair Display + Inter — deliberate departure from the editorial
+        Instrument Serif/Inter Tight pair, per the source design. */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap"
+    />
+  </head>
+
+  <body class="font-lp-body bg-white text-lp-ink antialiased text-[16px] leading-[1.6]">
+
+    {/* ── Top bar — black with orange Amazon's Choice ────────────────────── */}
+    <div class="bg-[#0e0e0e] text-white text-center px-4 py-3.5 text-[14px] font-normal">
+      <span class="text-lp-orange font-semibold">✦ Amazon's Choice</span> for Cappuccino Machines
+    </div>
+
+    <main>
+      <HeroSection      affiliateHref={affiliateHref} imageSrc={heroImage} />
+      <StatsBand />
+      <FeatureGrid />
+      <IncludedSection  affiliateHref={affiliateHref} imageSrc={heroImage} />
+      <ReviewsSection   affiliateHref={affiliateHref} />
+      <FinalCTA         affiliateHref={affiliateHref} />
+    </main>
+
+    {/* ── Footer — affiliate disclosure ──────────────────────────────────── */}
+    <footer class="bg-lp-cream px-8 py-8 text-center text-[13px] text-lp-ink-soft border-t border-lp-line">
+      This page contains affiliate links. As an Amazon Associate, we may earn from qualifying purchases at no extra cost to you.
+      <br /><br />
+      <a
+        href={affiliateHref}
+        rel="sponsored noopener"
+        target="_blank"
+        class="text-lp-ink underline underline-offset-[3px]"
+      >
+        View product on Amazon
+      </a>
+    </footer>
+
+  </body>
+</html>

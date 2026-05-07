@@ -1,0 +1,88 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  affiliateHref: string;
+  imageSrc:      ImageMetadata;
+}
+
+const { affiliateHref, imageSrc } = Astro.props;
+---
+
+<section class="bg-lp-cream grid grid-cols-1 lp:grid-cols-2 lp:min-h-[640px]">
+
+  {/* ── Left: image with single Editor's Pick badge ──────────────────────── */}
+  <div class="bg-lp-cream relative overflow-hidden flex items-center justify-center min-h-[360px] lp:min-h-0">
+    <Image
+      src={imageSrc}
+      alt="Breville Barista Express on a kitchen counter, pulling an espresso shot beside a freshly poured cappuccino"
+      widths={[480, 800, 1200, 1600]}
+      sizes="(min-width: 900px) 50vw, 100vw"
+      format="webp"
+      quality={82}
+      loading="eager"
+      class="w-full h-full object-cover block"
+    />
+    <div class="absolute top-6 left-6 bg-[rgba(20,20,20,0.88)] text-white px-3.5 py-2 text-[12px] font-semibold uppercase tracking-[0.12em] backdrop-blur-[4px]">
+      <span class="text-lp-orange">✦</span> Editor's Pick · 2026
+    </div>
+  </div>
+
+  {/* ── Right: type & CTAs ──────────────────────────────────────────────── */}
+  <div class="px-6 py-12 lp:py-20 lp:px-16 flex flex-col justify-center">
+
+    <div class="text-lp-green text-[12px] font-semibold uppercase tracking-[0.18em] mb-[22px]">
+      Espresso Machine · Premium Pick
+    </div>
+
+    <div class="inline-flex items-center gap-2 bg-lp-orange text-white px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.12em] mb-[26px] w-fit">
+      ✦ Amazon's Choice
+    </div>
+
+    <h1 class="font-lp-display font-bold leading-[1.1] -tracking-[0.01em] text-[clamp(44px,4.6vw,64px)] mb-[22px] text-lp-ink">
+      Your Cappuccino, <em class="italic font-semibold text-lp-green">Reimagined.</em>
+    </h1>
+
+    <p class="text-[17px] leading-[1.55] text-lp-ink-soft mb-7 max-w-[480px]">
+      Café-quality espresso without the café visit. Built-in conical burr grinder, professional steam wand, and the kind of build quality that lasts a decade.
+    </p>
+
+    <div class="flex items-center gap-[14px] mb-[26px] flex-wrap">
+      <span class="text-lp-gold tracking-[1px] text-[18px]">★★★★★</span>
+      <span class="font-bold text-lp-ink text-[16px]">4.6</span>
+      <span class="text-lp-ink-soft text-[15px]">27,400+ ratings</span>
+      <span class="inline-flex items-center gap-1.5 border border-lp-green text-lp-green px-3 py-1 rounded-full text-[12px] font-semibold">
+        ✓ Verified
+      </span>
+    </div>
+
+    <div class="bg-lp-orange-light border border-lp-line px-5 py-4 mb-7 text-[15px] text-lp-ink-soft rounded-[4px]">
+      🔥 <strong class="text-lp-orange-deep font-bold">800+ bought last month</strong> — Top Reviewed for Performance
+    </div>
+
+    <div class="flex flex-col gap-3 max-w-[440px]">
+      <a
+        href={affiliateHref}
+        rel="sponsored noopener"
+        target="_blank"
+        class="inline-flex items-center justify-center px-7 py-[18px] no-underline font-semibold text-[16px] border border-lp-ink bg-lp-ink text-white hover:bg-[#2a2a2a] transition-all duration-200"
+      >
+        Shop This Look on Amazon →
+      </a>
+      <a
+        href={affiliateHref}
+        rel="sponsored noopener"
+        target="_blank"
+        class="inline-flex items-center justify-center px-7 py-[18px] no-underline font-semibold text-[16px] border border-lp-line bg-transparent text-lp-ink hover:border-lp-ink hover:bg-black/[0.02] transition-all duration-200"
+      >
+        View Full Details &amp; Pricing
+      </a>
+    </div>
+
+    <div class="mt-3.5 text-[13px] text-lp-ink-mute">
+      🔒 Secure checkout via Amazon · Prime eligible
+    </div>
+
+  </div>
+</section>

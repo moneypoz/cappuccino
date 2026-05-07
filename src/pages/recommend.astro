@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RecommendTool from '../components/RecommendTool.tsx';
+---
+
+<BaseLayout
+  title="Find your machine"
+  description="Six questions, real recommendations. We tell you who paid us."
+>
+  <RecommendTool client:only="react" />
+</BaseLayout>

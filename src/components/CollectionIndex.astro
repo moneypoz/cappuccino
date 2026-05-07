@@ -1,0 +1,66 @@
+---
+interface EntryData {
+  title:       string;
+  description: string;
+  publishDate: Date;
+  author:      string;
+  readTime:    number;
+  category:    string;
+  featured?:   boolean;
+}
+
+interface Props {
+  entries:        Array<{ id: string; collection: string; data: EntryData }>;
+  collectionPath: string;   // 'guide' | 'make' | 'gear' | 'milk' | 'beans'
+  heading:        string;
+  description?:   string;
+}
+
+const { entries, collectionPath, heading, description } = Astro.props;
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+const truncate = (str: string, max = 90) =>
+  str.length > max ? str.slice(0, max).trimEnd() + '…' : str;
+---
+
+<section class="max-w-6xl mx-auto px-6 pt-22 pb-28">
+
+  <header class="mb-16">
+    <h1 class="font-display text-4xl text-ink mb-4">{heading}</h1>
+    {description && (
+      <p class="font-body text-lg text-espresso/70 max-w-prose">{description}</p>
+    )}
+  </header>
+
+  {entries.length === 0 ? (
+    <p class="font-body text-base text-espresso/45 italic">Nothing published here yet.</p>
+  ) : (
+    <div>
+      {entries.map((entry) => (
+        <a
+          href={`/${collectionPath}/${entry.id}`}
+          class="group block py-8 border-t border-espresso/[0.12] first:border-t-0"
+        >
+          <p class="small-caps font-body text-xs text-espresso/45 mb-3 tracking-widest">
+            {entry.data.category}&ensp;·&ensp;{formatDate(entry.data.publishDate)}
+          </p>
+
+          <h2 class="font-display text-xl text-ink group-hover:text-ember transition-colors duration-150 mb-2">
+            {entry.data.title}
+          </h2>
+
+          <p class="font-body text-sm text-espresso/60 mb-3 max-w-2xl">
+            {truncate(entry.data.description)}
+          </p>
+
+          <p class="font-body text-xs text-espresso/40">
+            {entry.data.author}&ensp;·&ensp;{entry.data.readTime} min read
+          </p>
+        </a>
+      ))}
+    </div>
+  )}
+
+</section>

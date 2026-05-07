@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  affiliateHref: string;
+  imageSrc:      ImageMetadata;
+}
+
+interface Item {
+  title: string;
+  body:  string;
+}
+
+const { affiliateHref, imageSrc } = Astro.props;
+
+const items: Item[] = [
+  {
+    title: 'Breville Barista Express (BES870BTR)',
+    body:  '15-bar Italian pump, brushed stainless, integrated conical burr grinder, articulated steam wand',
+  },
+  {
+    title: '54mm Stainless Portafilter',
+    body:  "Single & dual-wall filter baskets — pressurized for beginners, non-pressurized for proper extraction once you're dialed in",
+  },
+  {
+    title: 'Razor Dose Trimmer & Tamper',
+    body:  'Magnetic tamper sits on the side. Razor levels off your puck for consistent shots without owning a scale',
+  },
+  {
+    title: 'Stainless Milk Jug',
+    body:  '460ml jug with the right shape for steaming — the first thing most kits skip, included here',
+  },
+  {
+    title: 'Cleaning Kit & Water Filter',
+    body:  'Cleaning disc, tablets, descaling powder, allen key, charcoal filter — everything for first-year maintenance',
+  },
+];
+---
+
+<section class="bg-white px-6 py-16 lp:px-8 lp:py-24">
+  <div class="max-w-[1200px] mx-auto">
+    <div class="grid grid-cols-1 lp:grid-cols-2 gap-10 lp:gap-20 items-center">
+
+      {/* Image with "As Shown" pill */}
+      <div
+        class="relative rounded-[4px] overflow-hidden"
+        style="box-shadow: 0 1px 3px rgba(26,26,26,0.04), 0 8px 24px rgba(26,26,26,0.06);"
+      >
+        <Image
+          src={imageSrc}
+          alt="Breville Barista Express setup with espresso, cappuccino, milk, and accessories"
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 900px) 600px, 100vw"
+          format="webp"
+          quality={82}
+          class="w-full h-auto block"
+        />
+        <span class="absolute bottom-4 right-4 bg-white text-lp-ink px-3.5 py-2 rounded-full text-[12px] font-semibold">
+          ✓ As Shown
+        </span>
+      </div>
+
+      {/* Content */}
+      <div>
+        <div class="text-lp-green text-[12px] font-semibold uppercase tracking-[0.18em] mb-3.5">
+          What's Included
+        </div>
+        <h2 class="font-lp-display font-bold leading-[1.1] -tracking-[0.01em] text-[clamp(38px,4.2vw,52px)] text-lp-ink mb-8">
+          Everything You Need. <em class="italic font-semibold text-lp-green">Nothing You Don't.</em>
+        </h2>
+
+        <ul class="list-none mb-8">
+          {items.map((item, i) => (
+            <li
+              class:list={[
+                'flex gap-4 py-[18px] border-b border-lp-line',
+                i === 0 && 'pt-0',
+              ]}
+            >
+              <div class="shrink-0 w-6 h-6 rounded-full bg-lp-green text-white flex items-center justify-center text-[12px] font-bold mt-0.5">
+                ✓
+              </div>
+              <div>
+                <strong class="block font-bold text-lp-ink mb-1 text-[16px]">
+                  {item.title}
+                </strong>
+                <p class="text-lp-ink-soft text-[14px] leading-[1.5]">
+                  {item.body}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href={affiliateHref}
+          rel="sponsored noopener"
+          target="_blank"
+          class="inline-flex items-center justify-center px-7 py-[18px] no-underline font-semibold text-[16px] border border-lp-ink bg-lp-ink text-white hover:bg-[#2a2a2a] transition-all duration-200"
+        >
+          See Current Price on Amazon →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>

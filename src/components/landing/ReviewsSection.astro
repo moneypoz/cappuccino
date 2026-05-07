@@ -1,0 +1,133 @@
+---
+interface Props {
+  affiliateHref: string;
+}
+
+interface Review {
+  initials:    string;
+  name:        string;
+  date:        string;
+  title:       string;
+  body:        string;
+  avatarClass: string;
+}
+
+const { affiliateHref } = Astro.props;
+
+const reviews: Review[] = [
+  {
+    initials:    'A',
+    name:        'Anton',
+    date:        'Feb 14, 2026',
+    title:       'Works Flawlessly and Worth Every Penny',
+    body:        "The Breville Barista Express has been fantastic for me. It works flawlessly right out of the box and feels very well built. There's a lot to learn with it, but once you get the hang of it, it's extremely rewarding. The controls are intuitive, the steam wand works well for frothing milk, and cleanup is straightforward.",
+    avatarClass: 'bg-[#d4dfee] text-[#2d4373]',
+  },
+  {
+    initials:    'VM',
+    name:        'Vladyslav Minka',
+    date:        'Mar 19, 2026',
+    title:       'Quality of coffee',
+    body:        "I've been using the Breville Barista Express for a few months now, and it completely changed my coffee routine. It's truly an all-in-one machine — the built-in grinder means I can go from beans to espresso in under a minute. Once dialed in, the espresso comes out rich, balanced, and with a really nice crema.",
+    avatarClass: 'bg-[#d8e8de] text-[#2d5a3d]',
+  },
+  {
+    initials:    'W',
+    name:        'Wapas',
+    date:        'Mar 17, 2026',
+    title:       'Lasts for many years',
+    body:        "I have had mine for 8.5 years now. It still works perfect. I have good water — that is the key to long life. I use great beans and highly filtered water to make espresso. It is the best cup of coffee around. Seriously, even at a fancy restaurant the coffee can't compare to my home-made espresso.",
+    avatarClass: 'bg-[#f5d7dd] text-[#8a3a4a]',
+  },
+  {
+    initials:    'C',
+    name:        'Claire',
+    date:        'Apr 18, 2026',
+    title:       'A little more quiet for the morning!',
+    body:        "Our first Breville lasted 10 years. The dimensions of the new machine feel exactly the same, which is great and fits our counter. The big difference was how much quieter the grinder and water dispenser are. Wow, that was an update we were not expecting. Here's to another 10 years :)",
+    avatarClass: 'bg-[#f5ecc4] text-[#7a5a18]',
+  },
+  {
+    initials:    'CE',
+    name:        'Caveat Emptor',
+    date:        'Apr 4, 2026',
+    title:       'Going strong since 2019',
+    body:        "This is a solid piece of equipment. After about seven years I have only had to replace the gasket. I've been making espresso as my coffee drink of choice for 30+ years and roast my own beans. I see no reason to upgrade from this machine. With quality coffee and proper extraction, you'll get a shot like a high-end coffeeshop can do.",
+    avatarClass: 'bg-[#ddd4ee] text-[#4d2d73]',
+  },
+  {
+    initials:    'GS',
+    name:        'Gareth Seltzer',
+    date:        'Mar 30, 2018',
+    title:       "The best home machine I've ever used",
+    body:        "It takes just a few times to get the hang of operating this unit. The Consumer Report reviews are absolutely right. High quality, brilliant design, the bean grinding integration is awesome, and the result fantastic. I don't think I could give a home unit a higher mark than this. It's just really well done, easy to clean and the functionality and design is outstanding.",
+    avatarClass: 'bg-[#d4dfee] text-[#2d4373]',
+  },
+];
+---
+
+<section class="bg-lp-cream px-6 py-16 lp:px-8 lp:py-24">
+  <div class="max-w-[1200px] mx-auto">
+
+    {/* Header — title + giant 4.6 summary */}
+    <div class="grid grid-cols-1 lp:grid-cols-[1fr_auto] gap-6 lp:gap-16 items-end mb-12">
+      <div>
+        <div class="text-lp-green text-[12px] font-semibold uppercase tracking-[0.18em] mb-[18px]">
+          Customer Reviews
+        </div>
+        <h2 class="font-lp-display font-bold leading-[1.1] -tracking-[0.01em] text-[clamp(38px,4.2vw,52px)] text-lp-ink">
+          27,400+ People Love This Machine
+        </h2>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <div class="font-lp-display font-bold text-[56px] lp:text-[80px] leading-none text-lp-ink">
+          4.6
+        </div>
+        <div class="text-[14px] text-lp-ink-soft">
+          <span class="text-lp-gold tracking-[1px] text-[18px] block mb-1">★★★★★</span>
+          Out of 5 stars<br />27,400+ global ratings
+        </div>
+      </div>
+    </div>
+
+    {/* Reviews grid */}
+    <div class="grid grid-cols-1 lp:grid-cols-3 gap-6">
+      {reviews.map((review) => (
+        <article class="bg-white border border-lp-line rounded-[6px] p-7">
+          <header class="flex items-center gap-3 mb-[18px]">
+            <div class:list={['w-10 h-10 rounded-full flex items-center justify-center font-bold text-[13px] shrink-0', review.avatarClass]}>
+              {review.initials}
+            </div>
+            <div>
+              <div class="font-bold text-lp-ink text-[15px]">{review.name}</div>
+              <div class="text-[13px] text-lp-ink-mute">Verified Purchase · {review.date}</div>
+            </div>
+          </header>
+          <div class="text-lp-gold text-[14px] tracking-[1px] mb-3">★★★★★</div>
+          <h3 class="font-bold text-lp-ink text-[16px] mb-2.5 leading-[1.35]">
+            {review.title}
+          </h3>
+          <p class="text-lp-ink-soft text-[14px] leading-[1.6] mb-4">
+            {review.body}
+          </p>
+          <div class="text-lp-green text-[13px] font-semibold">
+            ✓ Verified Purchase
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="text-center mt-12">
+      <a
+        href={affiliateHref}
+        rel="sponsored noopener"
+        target="_blank"
+        class="text-lp-ink font-semibold underline underline-offset-4"
+      >
+        Read all 27,400+ reviews on Amazon →
+      </a>
+    </div>
+
+  </div>
+</section>

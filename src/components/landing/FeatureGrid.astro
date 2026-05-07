@@ -1,0 +1,82 @@
+---
+interface Feature {
+  icon:    string;
+  title:   string;
+  body:    string;
+}
+
+const features: Feature[] = [
+  {
+    icon:  '⚙️',
+    title: 'Built-In Burr Grinder',
+    body:  'Conical burr with 16 settings, doses straight into the portafilter. Fresh grinds matter for capps — this saves you a $400 second appliance.',
+  },
+  {
+    icon:  '💨',
+    title: 'Professional Steam Wand',
+    body:  'Articulated, single-hole tip with the pressure to actually texture milk. The dividing line between a real cappuccino and a cup of foam.',
+  },
+  {
+    icon:  '🌊',
+    title: 'Low-Pressure Pre-Infusion',
+    body:  'Saturates the puck before the 9-bar extraction. More even shots, fewer channels, better crema — every single time.',
+  },
+  {
+    icon:  '🌡️',
+    title: 'Precision Temperature Control',
+    body:  'Adjustable brew temperature in 2°F increments. The kind of control that turns a good shot into a great one.',
+  },
+  {
+    icon:  '🛠️',
+    title: 'Built to Last a Decade',
+    body:  'Brushed stainless body, replaceable parts, full Breville service network. Owners are still pulling daily shots after ten years.',
+  },
+  {
+    icon:  '📦',
+    title: 'Everything Included',
+    body:  "Razor dosing tool, tamper, milk jug, cleaning kit, water filter. No accessory upsell — you're brewing the day it arrives.",
+  },
+];
+---
+
+<section class="bg-lp-cream px-6 py-16 lp:px-8 lp:py-24">
+  <div class="max-w-[1200px] mx-auto">
+
+    <div class="text-lp-green text-[12px] font-semibold uppercase tracking-[0.18em] mb-[18px]">
+      Why It Sells
+    </div>
+    <h2 class="font-lp-display font-bold leading-[1.1] -tracking-[0.01em] text-[clamp(38px,4.2vw,52px)] text-lp-ink mb-4">
+      Built for Real Cappuccinos
+    </h2>
+    <p class="text-lp-ink-soft text-[17px] leading-[1.5] max-w-[540px] mb-14">
+      Everything your morning deserves — designed for café-quality on day one and year ten.
+    </p>
+
+    <div class="grid grid-cols-1 lp:grid-cols-3 border border-lp-line bg-white rounded-[4px]">
+      {features.map((feature, i) => {
+        const isLastRow = i >= features.length - 3;
+        const isRightCol = (i + 1) % 3 === 0;
+        return (
+          <div
+            class:list={[
+              'p-9 lp:px-9 lp:py-10',
+              'border-b border-lp-line',
+              i === features.length - 1 && 'border-b-0',
+              isLastRow && 'lp:border-b-0',
+              !isRightCol && 'lp:border-r lp:border-lp-line',
+            ]}
+          >
+            <span class="text-[32px] mb-[22px] block">{feature.icon}</span>
+            <h3 class="font-lp-display text-[22px] font-bold mb-3 text-lp-ink">
+              {feature.title}
+            </h3>
+            <p class="text-lp-ink-soft text-[15px] leading-[1.55]">
+              {feature.body}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>

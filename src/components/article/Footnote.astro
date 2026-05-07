@@ -1,0 +1,22 @@
+---
+interface Props {
+  number: number;
+  text:   string;
+}
+const { number, text } = Astro.props;
+---
+
+<!--
+  Desktop (xl+): float right into the gutter, same negative-margin trick as PullQuote.
+  Mobile: renders inline as a small indented note.
+-->
+<aside class="
+  my-6 not-prose
+  xl:float-right xl:clear-right
+  xl:w-[210px] xl:-mr-[242px] xl:ml-10 xl:mt-0
+">
+  <p class="font-body text-xs text-espresso/55 leading-relaxed border-l border-espresso/20 pl-3">
+    <span class="font-medium text-espresso/40 mr-1">{number}.</span>
+    {text}
+  </p>
+</aside>

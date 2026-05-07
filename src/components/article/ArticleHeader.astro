@@ -1,0 +1,57 @@
+---
+import { authorsBySlug } from '../../data/authors';
+
+interface Props {
+  title:       string;
+  description: string;
+  category:    string;
+  collection:  string;
+  author:      string;
+  publishDate: Date;
+  updatedDate?: Date;
+  readTime:    number;
+  heroImage?:  string;
+}
+
+const {
+  title, description, category, collection,
+  author, publishDate, updatedDate, readTime, heroImage,
+} = Astro.props;
+
+const authorRecord = authorsBySlug[author];
+const displayName  = authorRecord?.name ?? author;
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+{heroImage && (
+  <div class="w-full max-h-[50vh] overflow-hidden mb-12">
+    <img src={heroImage} alt="" class="w-full h-full object-cover" loading="eager" />
+  </div>
+)}
+
+<header class="mb-12">
+  <p class="small-caps font-body text-xs text-espresso/45 tracking-widest mb-5">
+    <a
+      href={`/${collection}`}
+      class="hover:text-ink transition-colors duration-150"
+    >
+      {category}
+    </a>
+  </p>
+
+  <h1 class="font-display text-4xl md:text-5xl text-ink leading-[1.1] tracking-[-0.02em] mb-5 max-w-[22ch]">
+    {title}
+  </h1>
+
+  <p class="font-display italic text-xl text-espresso/70 leading-[1.4] mb-6 max-w-[52ch]">
+    {description}
+  </p>
+
+  <p class="font-body text-sm text-espresso/50">
+    {displayName}&ensp;·&ensp;{formatDate(publishDate)}
+    {updatedDate && <span>&ensp;· Updated {formatDate(updatedDate)}</span>}
+    &ensp;·&ensp;{readTime} min read
+  </p>
+</header>

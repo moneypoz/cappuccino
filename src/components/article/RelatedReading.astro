@@ -1,0 +1,43 @@
+---
+interface ArticleRef {
+  title:      string;
+  slug:       string;
+  collection: string;
+  category:   string;
+  description: string;
+}
+
+interface Props {
+  articles: ArticleRef[];
+}
+
+const { articles } = Astro.props;
+if (articles.length === 0) return;
+---
+
+<section class="mt-12 pt-8 border-t border-espresso/15 not-prose">
+  <p class="small-caps font-body text-xs text-espresso/45 tracking-widest mb-6">
+    Related Reading
+  </p>
+
+  <ul class="space-y-5">
+    {articles.map(article => (
+      <li>
+        <a
+          href={`/${article.collection}/${article.slug}`}
+          class="group block"
+        >
+          <p class="small-caps font-body text-xs text-espresso/40 tracking-widest mb-1">
+            {article.category}
+          </p>
+          <p class="font-display text-lg text-ink group-hover:text-ember transition-colors duration-150 leading-snug">
+            {article.title}
+          </p>
+          <p class="font-body text-sm text-espresso/60 mt-1 leading-snug">
+            {article.description}
+          </p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

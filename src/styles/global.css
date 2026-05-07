@@ -1,0 +1,269 @@
+/* Fonts — loaded from fontsource, never Google CDN.
+   Display: Instrument Serif (single weight, upright + italic).
+   Body:    Inter Tight Variable (wght axis, upright + italic). */
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/instrument-serif/400-italic.css';
+@import '@fontsource-variable/inter-tight';
+@import '@fontsource-variable/inter-tight/wght-italic.css';
+
+@import 'tailwindcss';
+
+/* ─── Design tokens ────────────────────────────────────────────────────────
+   Source of truth for Tailwind v4. TypeScript mirror lives in tailwind.config.ts.
+   ─────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* ── Colors ───────────────────────────────────────────────────────────── */
+  /* Background tones */
+  --color-bone:      #F5F1EA;   /* primary background — warm off-white  */
+  --color-cream:     #EBE3D5;   /* card surfaces — one step warmer      */
+  --color-paper:     #FAFAF7;   /* contrast sections — slightly cooler  */
+
+  /* Text tones */
+  --color-ink:       #14110F;   /* near-black — headlines, max contrast */
+  --color-espresso:  #2B1810;   /* primary text on light                */
+  --color-walnut:    #5C3D2E;   /* mid-brown — body where espresso is too heavy */
+
+  /* Accents */
+  --color-ember:     #B8553A;   /* primary accent — sparing             */
+  --color-rust:      #8B3A1F;   /* darker accent — hover, deliberate emphasis */
+  --color-sage:      #6B7158;   /* desaturated green — wildcard/tertiary tone */
+
+  /* ── Fonts ────────────────────────────────────────────────────────────── */
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body:    'Inter Tight Variable', system-ui, sans-serif;
+
+  /* ── Type scale — editorial, 10 sizes ─────────────────────────────────── */
+  --text-micro:   0.625rem;    /* 10px — kickers, page metadata, running heads */
+  --text-micro--line-height: 1.4;
+  --text-micro--letter-spacing: 0.18em;
+
+  --text-caption: 0.75rem;     /* 12px — small caps labels, marginalia        */
+  --text-caption--line-height: 1.5;
+
+  --text-small:   0.875rem;    /* 14px — secondary body, footer               */
+  --text-small--line-height: 1.6;
+
+  --text-body:    1.0625rem;   /* 17px — primary body                         */
+  --text-body--line-height: 1.6;
+
+  --text-lead:    1.25rem;     /* 20px — lead paragraphs, deks                */
+  --text-lead--line-height: 1.55;
+
+  --text-h4:      1.75rem;     /* 28px                                        */
+  --text-h4--line-height: 1.2;
+
+  --text-h3:      2.5rem;      /* 40px                                        */
+  --text-h3--line-height: 1.08;
+
+  --text-h2:      3.5rem;      /* 56px                                        */
+  --text-h2--line-height: 1.02;
+
+  --text-h1:      5.5rem;      /* 88px                                        */
+  --text-h1--line-height: 0.96;
+  --text-h1--letter-spacing: -0.015em;
+
+  --text-display: clamp(6rem, 12vw, 10.5rem);  /* 96–168px hero only */
+  --text-display--line-height: 0.92;
+  --text-display--letter-spacing: -0.02em;
+
+  /* ── Spacing aliases ──────────────────────────────────────────────────── */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  --spacing-28: 7rem;
+  --spacing-36: 9rem;
+
+  /* ── Landing-page tokens (affiliate landing on /) ─────────────────────────
+     Namespaced with `lp-` so they don't collide with the editorial palette
+     above (which is shared by /about, /recommend, /affiliate-disclosure).
+     This page deliberately uses Playfair Display + Inter and a warmer cream,
+     per the source design — see src/pages/index.astro.
+     ─────────────────────────────────────────────────────────────────────── */
+  --color-lp-cream:         #f5efe6;
+  --color-lp-ink:           #1a1a1a;
+  --color-lp-ink-soft:      #555555;
+  --color-lp-ink-mute:      #888888;
+  --color-lp-orange:        #e0823c;
+  --color-lp-orange-bright: #ed8c44;
+  --color-lp-orange-deep:   #c46a28;
+  --color-lp-orange-light:  #faf0e6;
+  --color-lp-green:         #2d5a3d;
+  --color-lp-green-soft:    #d8e8de;
+  --color-lp-gold:          #d4a043;
+  --color-lp-line:          #e8dfd2;
+
+  --font-lp-display: 'Playfair Display', Georgia, serif;
+  --font-lp-body:    'Inter', system-ui, sans-serif;
+
+  --breakpoint-lp:   900px;
+}
+
+/* ─── Document defaults ──────────────────────────────────────────────────── */
+html {
+  font-family: var(--font-body);
+  font-size: 100%;
+  background-color: var(--color-bone);
+  color: var(--color-espresso);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-optical-sizing: auto;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+/* ─── Editorial typography ───────────────────────────────────────────────── */
+
+/* Drop cap — applied via .dropcap span wrapper for reliable rendering across
+   browsers (::first-letter pseudo behaves inconsistently with variable fonts
+   and quote marks). Use as <span class="dropcap">F</span>irst paragraph... */
+.dropcap {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 4.6em;
+  line-height: 0.82;
+  margin: 0.05em 0.07em -0.05em 0;
+  color: var(--color-espresso);
+  font-feature-settings: 'lnum' 1;
+}
+
+/* Tabular figures helper — for prices, rank numbers, year labels */
+.tnum {
+  font-feature-settings: 'tnum' 1, 'lnum' 1;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Widows and orphans */
+p {
+  orphans: 3;
+  widows: 3;
+  text-wrap: pretty;
+}
+
+/* Hanging punctuation — Safari only; degrades gracefully */
+p,
+blockquote {
+  hanging-punctuation: first last;
+}
+
+/* Balanced headlines using display family */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+  font-family: var(--font-display);
+  color: var(--color-ink);
+}
+
+/* ─── Utility overrides ──────────────────────────────────────────────────── */
+
+/* Small caps helper */
+.small-caps {
+  font-variant: small-caps;
+  font-feature-settings: 'smcp' 1;
+  letter-spacing: 0.06em;
+}
+
+/* Display utility — re-applied so non-h1 elements can opt in */
+.text-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: var(--text-display--line-height);
+  letter-spacing: var(--text-display--letter-spacing);
+}
+
+/* Leader-dot row — magazine convention. Use as:
+     <span class="leader">
+       <span>Label</span>
+       <span class="leader-dots"></span>
+       <span>Metadata</span>
+     </span>
+   The middle span renders a row of dots that fills the available space. */
+.leader {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+}
+.leader-dots {
+  flex: 1;
+  border-bottom: 1px dotted color-mix(in srgb, var(--color-espresso) 35%, transparent);
+  position: relative;
+  top: -0.3em;
+  min-width: 1ch;
+}
+
+/* Section divider — full-bleed hairline at espresso/30 */
+.rule-divider {
+  border-color: color-mix(in srgb, var(--color-espresso) 30%, transparent);
+}
+
+/* In-content rule — 0.5px hairline at espresso/15 */
+.rule-fine {
+  border-bottom: 0.5px solid color-mix(in srgb, var(--color-espresso) 15%, transparent);
+}
+
+/* Decorative dotted rule — for vertical kicker accompaniment */
+.rule-dotted {
+  border-color: color-mix(in srgb, var(--color-espresso) 40%, transparent);
+  border-style: dotted;
+}
+
+/* ─── Question screen: 200ms cross-fade between steps ────────────────────── */
+@keyframes step-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.step-fade {
+  animation: step-fade-in 200ms ease;
+}
+
+/* ─── Recommendation tool: range slider ──────────────────────────────────── */
+.range-editorial {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: color-mix(in srgb, var(--color-espresso) 18%, transparent);
+  outline: none;
+  cursor: pointer;
+}
+.range-editorial::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--color-ink);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+.range-editorial::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--color-ink);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: background-color 150ms ease;
+}
+.range-editorial:hover::-webkit-slider-thumb,
+.range-editorial:focus::-webkit-slider-thumb {
+  background: var(--color-ember);
+}
+.range-editorial:hover::-moz-range-thumb,
+.range-editorial:focus::-moz-range-thumb {
+  background: var(--color-ember);
+}
+
+/* ─── Recommendation tool: calculating-state pulse dot ───────────────────── */
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-ember);
+  animation: pulse-dot 1.6s ease-in-out infinite;
+  vertical-align: middle;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.2; }
+  50%      { opacity: 1;   }
+}

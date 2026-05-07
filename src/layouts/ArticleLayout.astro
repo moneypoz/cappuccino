@@ -1,0 +1,117 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ArticleHeader from '../components/article/ArticleHeader.astro';
+import AuthorBio from '../components/article/AuthorBio.astro';
+import RelatedProducts from '../components/article/RelatedProducts.astro';
+import RelatedReading from '../components/article/RelatedReading.astro';
+
+interface ArticleRef {
+  title:       string;
+  slug:        string;
+  collection:  string;
+  category:    string;
+  description: string;
+}
+
+interface Props {
+  title:               string;
+  description:         string;
+  publishDate:         Date;
+  updatedDate?:        Date;
+  author:              string;
+  readTime:            number;
+  heroImage?:          string;
+  category:            string;
+  collection:          string;
+  affiliateDisclosure: boolean;
+  schema:              string;
+  relatedProducts?:    string[];
+  relatedReading?:     ArticleRef[];
+}
+
+const {
+  title, description, publishDate, updatedDate,
+  author, readTime, heroImage, category, collection,
+  affiliateDisclosure, schema,
+  relatedProducts = [],
+  relatedReading  = [],
+} = Astro.props;
+
+// JSON-LD for Article / HowTo / Review — FAQPage JSON-LD is emitted by FAQSection.astro
+const jsonLd: Record<string, unknown> = {
+  '@context':    'https://schema.org',
+  '@type':       schema === 'Review' ? 'Review' : schema === 'HowTo' ? 'HowTo' : 'Article',
+  headline:      title,
+  description,
+  author: {
+    '@type': 'Person',
+    name:    'Sara Vitale',
+    url:     'https://cappuccino.io/about',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name:    'cappuccino.io',
+    url:     'https://cappuccino.io',
+  },
+  datePublished: publishDate.toISOString(),
+  ...(updatedDate ? { dateModified: updatedDate.toISOString() } : {}),
+  ...(heroImage ? { image: heroImage } : {}),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <!--
+    Layout: centered 65ch prose column.
+    At xl (1280px+) the prose container has enough right margin (~300px) for marginalia
+    components (PullQuote, Footnote) to float right using negative margins without
+    creating a text-exclusion area inside the prose.
+  -->
+  <div class="max-w-[68ch] mx-auto px-6 pt-16 pb-28">
+
+    <ArticleHeader
+      title={title}
+      description={description}
+      category={category}
+      collection={collection}
+      author={author}
+      publishDate={publishDate}
+      updatedDate={updatedDate}
+      readTime={readTime}
+      heroImage={heroImage}
+    />
+
+    {affiliateDisclosure && (
+      <div class="mb-10 border-l-2 border-espresso/20 pl-4 not-prose">
+        <p class="font-body text-sm text-espresso/50 leading-relaxed">
+          This article contains affiliate links. We may earn a commission on purchases
+          made through links on this page — at no extra cost to you.{' '}
+          <a
+            href="/affiliate-disclosure"
+            class="underline underline-offset-4 decoration-espresso/30 hover:text-ink transition-colors duration-150"
+          >
+            Full disclosure.
+          </a>
+        </p>
+      </div>
+    )}
+
+    <article class="prose-article">
+      <slot />
+    </article>
+
+    {relatedProducts.length > 0 && (
+      <RelatedProducts slugs={relatedProducts} />
+    )}
+
+    <AuthorBio authorSlug={author} />
+
+    {relatedReading.length > 0 && (
+      <RelatedReading articles={relatedReading} />
+    )}
+
+  </div>
+</BaseLayout>

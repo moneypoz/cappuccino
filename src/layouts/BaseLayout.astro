@@ -1,0 +1,159 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title:         string;
+  description?:  string;
+  canonicalURL?: string;
+}
+
+const {
+  title,
+  description = 'A short, opinionated tool for finding the right home espresso machine for the cappuccinos you actually want to make.',
+  canonicalURL = Astro.url.href,
+} = Astro.props;
+
+const footerCols: { num: string; heading: string; links: { label: string; href: string }[] }[] = [
+  {
+    num: '01', heading: 'Tool',
+    links: [
+      { label: 'Find your machine', href: '/recommend' },
+    ],
+  },
+  {
+    num: '02', heading: 'About',
+    links: [
+      { label: 'How we pick',  href: '/about' },
+      { label: 'Disclosures',  href: '/affiliate-disclosure' },
+      { label: 'Get featured', href: '/sponsor' },
+    ],
+  },
+  {
+    num: '03', heading: 'Reading',
+    links: [
+      { label: 'Why cappuccino-first matters',          href: '/reading/cappuccino-first' },
+      { label: 'What microfoam actually is',            href: '/reading/microfoam' },
+      { label: 'Single boiler vs. dual boiler at home', href: '/reading/boilers' },
+    ],
+  },
+];
+
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title} — Cappuccino</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <slot name="head" />
+  </head>
+
+  <body class="bg-bone text-espresso overflow-x-hidden">
+
+    {/* ─── Header ──────────────────────────────────────────────────────── */}
+    <header class="sticky top-0 z-50 bg-bone/90 backdrop-blur-sm border-b border-espresso/15">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="h-14 flex items-center justify-between">
+
+          {/* Wordmark — display serif */}
+          <a
+            href="/"
+            class="font-display text-h4 text-ink tracking-[-0.01em] hover:text-ember transition-colors duration-150 leading-none"
+            aria-label="Cappuccino — home"
+          >
+            Cappuccino
+          </a>
+
+          {/* Single primary action */}
+          <a
+            href="/recommend"
+            class="font-body text-small text-espresso hover:text-ink transition-colors duration-150"
+          >
+            Find your machine&thinsp;&rarr;
+          </a>
+
+        </div>
+      </div>
+    </header>
+
+    {/* ─── Main content ─────────────────────────────────────────────────── */}
+    <main>
+      <slot />
+    </main>
+
+    {/* ─── Footer ──────────────────────────────────────────────────────── */}
+    <footer class="mt-36 bg-cream">
+
+      {/* Edge-to-edge top rule — section transition hairline */}
+      <div class="border-t border-espresso/15"></div>
+
+      {/* Running head — leader-dot treatment, three fields */}
+      <div class="max-w-6xl mx-auto px-6 pt-7 pb-9">
+        <span class="leader small-caps font-body text-micro text-espresso/55 tracking-[0.32em]">
+          <span>cappuccino.io</span>
+          <span class="leader-dots"></span>
+          <span>Index</span>
+          <span class="leader-dots"></span>
+          <span class="tnum">&copy; {year}</span>
+        </span>
+      </div>
+
+      <div class="border-t border-espresso/[0.08]"></div>
+
+      {/* Masthead — typographic watermark */}
+      <div class="max-w-6xl mx-auto px-6 pt-14 pb-4 overflow-hidden">
+        <p
+          aria-hidden="true"
+          class="font-display text-display text-espresso/[0.08] leading-[0.85] -tracking-[0.02em] whitespace-nowrap select-none"
+        >
+          Cappuccino
+        </p>
+      </div>
+
+      {/* Numbered columns */}
+      <div class="max-w-6xl mx-auto px-6 pt-10 pb-18 grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-12">
+        {footerCols.map(({ num, heading, links }, i) => (
+          <div class={`md:col-span-4 ${i === 1 ? 'md:border-l md:border-espresso/10 md:pl-7' : ''} ${i === 2 ? 'md:border-l md:border-espresso/10 md:pl-7' : ''}`}>
+            <p class="small-caps font-body text-micro text-espresso/55 tracking-[0.32em] mb-6 leader">
+              <span class="font-display text-caption text-espresso not-italic tracking-normal mr-1 tnum">{num}</span>
+              <span>&mdash;&ensp;{heading}</span>
+            </p>
+            <ul class="list-none m-0 p-0 space-y-3">
+              {links.map(({ label, href }) => (
+                <li>
+                  <a
+                    href={href}
+                    class="font-body text-small text-walnut hover:text-ink transition-colors duration-150"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      {/* Edge-to-edge bottom rule */}
+      <div class="border-t border-espresso/15"></div>
+
+      {/* Bottom strip */}
+      <div class="max-w-6xl mx-auto px-6 py-7">
+        <p class="small-caps font-body text-micro text-espresso/45 tracking-[0.32em]">
+          &copy; {year} cappuccino.io &ensp;&middot;&ensp; reader-supported &ensp;&middot;&ensp; we earn affiliate commissions
+        </p>
+      </div>
+
+    </footer>
+
+  </body>
+</html>
