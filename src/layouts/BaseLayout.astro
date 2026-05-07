@@ -54,6 +54,10 @@ const year = new Date().getFullYear();
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+
+    {/* Clicky analytics — anonymous, no cookie banner needed for US traffic. */}
+    <script async is:inline data-id="101381681" src="//in.getclicky.com/101381681ns.js"></script>
+
     <slot name="head" />
   </head>
 
@@ -154,6 +158,9 @@ const year = new Date().getFullYear();
       </div>
 
     </footer>
+
+    {/* Clicky no-JS fallback pixel */}
+    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101381681ns.gif" /></p></noscript>
 
   </body>
 </html>

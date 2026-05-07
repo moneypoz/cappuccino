@@ -45,6 +45,9 @@ const ogImage       = new URL(heroImage.src, Astro.url).href;
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap"
     />
+
+    {/* Clicky analytics — anonymous, no cookie banner needed for US traffic. */}
+    <script async is:inline data-id="101381681" src="//in.getclicky.com/101381681ns.js"></script>
   </head>
 
   <body class="font-lp-body bg-white text-lp-ink antialiased text-[16px] leading-[1.6]">
@@ -76,6 +79,9 @@ const ogImage       = new URL(heroImage.src, Astro.url).href;
         View product on Amazon
       </a>
     </footer>
+
+    {/* Clicky no-JS fallback pixel */}
+    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101381681ns.gif" /></p></noscript>
 
   </body>
 </html>
