@@ -56,7 +56,16 @@ const year = new Date().getFullYear();
     <link rel="icon" href="/favicon.ico" />
 
     {/* Clicky analytics — anonymous, no cookie banner needed for US traffic. */}
-    <script async is:inline data-id="101381681" src="//in.getclicky.com/101381681ns.js"></script>
+    <script is:inline>
+      (function() {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = '//static.getclicky.com/js';
+        s.setAttribute('data-id', 101381681);
+        (document.head || document.body).appendChild(s);
+      })();
+    </script>
 
     {/* Google Analytics 4 (gtag.js) */}
     <script async is:inline src="https://www.googletagmanager.com/gtag/js?id=G-L8BF6D6CMQ"></script>
