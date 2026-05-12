@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cappuccino.io/sitemap-index.xml
