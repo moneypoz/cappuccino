@@ -34,6 +34,73 @@ const ogImage       = new URL(heroImage.src, Astro.url).href;
     <meta name="twitter:card"       content="summary_large_image" />
     <meta name="twitter:image"      content={ogImage} />
 
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://cappuccino.io/#organization",
+          "name": "cappuccino.io",
+          "url": "https://cappuccino.io",
+          "description": "Editorial cappuccino reviews and recommendations. One drink. Done right."
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://cappuccino.io/#website",
+          "url": "https://cappuccino.io",
+          "name": "cappuccino.io",
+          "publisher": { "@id": "https://cappuccino.io/#organization" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://cappuccino.io/#author-sara-vitale",
+          "name": "Sara Vitale",
+          "description": "Coffee writer and longtime home espresso enthusiast. Reviews cappuccino equipment for cappuccino.io.",
+          "url": "https://cappuccino.io/author/sara-vitale"
+        },
+        {
+          "@type": "Product",
+          "@id": "https://cappuccino.io/#product-breville-barista-express",
+          "name": "Breville Barista Express (BES870BTR)",
+          "brand": { "@type": "Brand", "name": "Breville" },
+          "model": "BES870BTR",
+          "category": "Semi-Automatic Espresso Machine",
+          "description": "Semi-automatic espresso machine with integrated conical burr grinder, 15-bar Italian pump, articulated steam wand, and pre-infusion. Built for serious home cappuccino.",
+          "image": "https://cappuccino.io/breville-hero.png",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.6",
+            "reviewCount": "27400",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "offers": {
+            "@type": "Offer",
+            "url": "https://amzn.to/4uypdmM",
+            "availability": "https://schema.org/InStock",
+            "priceCurrency": "USD",
+            "seller": { "@type": "Organization", "name": "Amazon" }
+          }
+        },
+        {
+          "@type": "Review",
+          "@id": "https://cappuccino.io/#editorial-review",
+          "itemReviewed": { "@id": "https://cappuccino.io/#product-breville-barista-express" },
+          "author": { "@id": "https://cappuccino.io/#author-sara-vitale" },
+          "publisher": { "@id": "https://cappuccino.io/#organization" },
+          "datePublished": "2026-05-11",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "4.8",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "name": "Breville Barista Express Review: The Cappuccino Machine We'd Actually Buy",
+          "reviewBody": "Built-in conical burr grinder, articulated single-hole steam wand, low-pressure pre-infusion, and a decade-long build reputation. Nothing under $1,000 touches it for serious home cappuccino. Real learning curve, single-boiler limitation, and a substantial counter footprint — but for one to three caps a day done right, it's the best machine for the money."
+        }
+      ]
+    })} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
 
