@@ -2,15 +2,25 @@
 import '../styles/global.css';
 
 interface Props {
-  title:         string;
-  description?:  string;
-  canonicalURL?: string;
+  title:          string;
+  description?:   string;
+  canonicalURL?:  string;
+  ogTitle?:       string;
+  ogDescription?: string;
+  ogUrl?:         string;
+  ogImage?:       string;
+  ogImageAlt?:    string;
 }
 
 const {
   title,
   description = 'A short, opinionated tool for finding the right home espresso machine for the cappuccinos you actually want to make.',
   canonicalURL = Astro.url.href,
+  ogTitle       = "The Best Cappuccino Machine — Amazon's Choice | cappuccino.io",
+  ogDescription = "Café-quality espresso without the café visit. The Breville Barista Express has been the answer for serious home cappuccinos for a decade. Editor's pick, reviewed.",
+  ogUrl         = 'https://cappuccino.io',
+  ogImage       = 'https://cappuccino.io/og-image.jpg',
+  ogImageAlt    = 'Breville Barista Express espresso machine on a kitchen counter pulling a shot of espresso',
 } = Astro.props;
 
 const footerCols: { num: string; heading: string; links: { label: string; href: string }[] }[] = [
@@ -51,6 +61,26 @@ const year = new Date().getFullYear();
     <title>{title} — Cappuccino</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+
+    {/* Open Graph (Facebook, LinkedIn, iMessage, Slack, Discord, WhatsApp) */}
+    <meta property="og:type"           content="website" />
+    <meta property="og:site_name"      content="cappuccino.io" />
+    <meta property="og:url"            content={ogUrl} />
+    <meta property="og:title"          content={ogTitle} />
+    <meta property="og:description"    content={ogDescription} />
+    <meta property="og:image"          content={ogImage} />
+    <meta property="og:image:width"    content="1200" />
+    <meta property="og:image:height"   content="630" />
+    <meta property="og:image:alt"      content={ogImageAlt} />
+    <meta property="og:locale"         content="en_US" />
+
+    {/* Twitter Card */}
+    <meta name="twitter:card"          content="summary_large_image" />
+    <meta name="twitter:url"           content={ogUrl} />
+    <meta name="twitter:title"         content={ogTitle} />
+    <meta name="twitter:description"   content={ogDescription} />
+    <meta name="twitter:image"         content={ogImage} />
+    <meta name="twitter:image:alt"     content={ogImageAlt} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />

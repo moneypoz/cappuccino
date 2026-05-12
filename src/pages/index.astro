@@ -11,8 +11,13 @@ import heroImage        from '../assets/breville-hero.png';
 const title         = "The Best Cappuccino Machine | Amazon's Choice — cappuccino.io";
 const description   = "Amazon's Choice for cappuccino machines. Built-in grinder, real steam wand, decade-long build quality. The Breville Barista Express, reviewed.";
 const affiliateHref = 'https://amzn.to/4uypdmM';
-const canonicalURL  = Astro.url.href;
-const ogImage       = new URL(heroImage.src, Astro.url).href;
+const canonicalURL  = 'https://cappuccino.io';
+
+const ogTitle       = "The Best Cappuccino Machine — Amazon's Choice | cappuccino.io";
+const ogDescription = "Café-quality espresso without the café visit. The Breville Barista Express has been the answer for serious home cappuccinos for a decade. Editor's pick, reviewed.";
+const ogUrl         = 'https://cappuccino.io';
+const ogImage       = 'https://cappuccino.io/og-image.jpg';
+const ogImageAlt    = 'Breville Barista Express espresso machine on a kitchen counter pulling a shot of espresso';
 ---
 
 <!doctype html>
@@ -26,13 +31,25 @@ const ogImage       = new URL(heroImage.src, Astro.url).href;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
-    <meta property="og:type"        content="website" />
-    <meta property="og:title"       content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image"       content={ogImage} />
-    <meta property="og:url"         content={canonicalURL} />
-    <meta name="twitter:card"       content="summary_large_image" />
-    <meta name="twitter:image"      content={ogImage} />
+    {/* Open Graph (Facebook, LinkedIn, iMessage, Slack, Discord, WhatsApp) */}
+    <meta property="og:type"           content="website" />
+    <meta property="og:site_name"      content="cappuccino.io" />
+    <meta property="og:url"            content={ogUrl} />
+    <meta property="og:title"          content={ogTitle} />
+    <meta property="og:description"    content={ogDescription} />
+    <meta property="og:image"          content={ogImage} />
+    <meta property="og:image:width"    content="1200" />
+    <meta property="og:image:height"   content="630" />
+    <meta property="og:image:alt"      content={ogImageAlt} />
+    <meta property="og:locale"         content="en_US" />
+
+    {/* Twitter Card */}
+    <meta name="twitter:card"          content="summary_large_image" />
+    <meta name="twitter:url"           content={ogUrl} />
+    <meta name="twitter:title"         content={ogTitle} />
+    <meta name="twitter:description"   content={ogDescription} />
+    <meta name="twitter:image"         content={ogImage} />
+    <meta name="twitter:image:alt"     content={ogImageAlt} />
 
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
