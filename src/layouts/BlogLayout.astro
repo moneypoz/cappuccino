@@ -1,0 +1,133 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title:          string;
+  description:    string;
+  canonicalURL:   string;
+  ogTitle?:       string;
+  ogDescription?: string;
+  ogImage?:       string;
+  ogImageAlt?:    string;
+}
+
+const {
+  title,
+  description,
+  canonicalURL,
+  ogTitle       = title,
+  ogDescription = description,
+  ogImage       = 'https://cappuccino.io/og-image.jpg',
+  ogImageAlt    = 'cappuccino.io — editorial cappuccino reviews and writing',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    {/* Open Graph */}
+    <meta property="og:type"           content="article" />
+    <meta property="og:site_name"      content="cappuccino.io" />
+    <meta property="og:url"            content={canonicalURL} />
+    <meta property="og:title"          content={ogTitle} />
+    <meta property="og:description"    content={ogDescription} />
+    <meta property="og:image"          content={ogImage} />
+    <meta property="og:image:width"    content="1200" />
+    <meta property="og:image:height"   content="630" />
+    <meta property="og:image:alt"      content={ogImageAlt} />
+    <meta property="og:locale"         content="en_US" />
+
+    {/* Twitter Card */}
+    <meta name="twitter:card"          content="summary_large_image" />
+    <meta name="twitter:url"           content={canonicalURL} />
+    <meta name="twitter:title"         content={ogTitle} />
+    <meta name="twitter:description"   content={ogDescription} />
+    <meta name="twitter:image"         content={ogImage} />
+    <meta name="twitter:image:alt"     content={ogImageAlt} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    {/* Playfair Display + Inter — matches the homepage editorial stack. */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap"
+    />
+
+    {/* Clicky analytics */}
+    <script is:inline>
+      (function() {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = '//static.getclicky.com/js';
+        s.setAttribute('data-id', 101381681);
+        (document.head || document.body).appendChild(s);
+      })();
+    </script>
+
+    {/* Google Analytics 4 */}
+    <script async is:inline src="https://www.googletagmanager.com/gtag/js?id=G-L8BF6D6CMQ"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L8BF6D6CMQ');
+    </script>
+
+    <slot name="head" />
+  </head>
+
+  <body class="font-lp-body bg-lp-cream text-lp-ink antialiased">
+
+    {/* ── Header ─────────────────────────────────────────────────────────── */}
+    <header class="border-b border-lp-line">
+      <div class="max-w-[1100px] mx-auto px-6 py-5 flex items-center justify-between">
+        <a
+          href="/"
+          class="font-lp-display text-[22px] font-bold text-lp-ink no-underline tracking-tight leading-none"
+          aria-label="cappuccino.io — home"
+        >
+          cappuccino<span class="text-lp-green">.io</span>
+        </a>
+        <a
+          href="/blog"
+          class="text-[13px] text-lp-ink-soft hover:text-lp-ink uppercase tracking-[0.14em] font-semibold no-underline"
+        >
+          Reading
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    {/* ── Footer ─────────────────────────────────────────────────────────── */}
+    <footer class="bg-lp-cream border-t border-lp-line mt-24">
+      <div class="max-w-[1100px] mx-auto px-6 py-10 text-center text-[13px] text-lp-ink-soft">
+        <div class="mb-3">
+          <a href="/" class="text-lp-ink hover:text-lp-green underline underline-offset-[3px] mr-5">Home</a>
+          <a href="/blog" class="text-lp-ink hover:text-lp-green underline underline-offset-[3px]">Reading</a>
+        </div>
+        <p>
+          Editorial cappuccino reviews and recommendations. As an Amazon Associate, cappuccino.io may earn from qualifying purchases.
+        </p>
+      </div>
+    </footer>
+
+    {/* Clicky no-JS fallback pixel */}
+    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101381681ns.gif" /></p></noscript>
+
+  </body>
+</html>

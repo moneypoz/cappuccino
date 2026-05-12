@@ -53,4 +53,17 @@ const places = defineCollection({
   }),
 });
 
-export const collections = { guide, make, gear, milk, beans, places };
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: z.object({
+    title:       z.string(),
+    description: z.string(),
+    pubDate:     z.coerce.date(),
+    author:      z.string().default('Sara Vitale'),
+    tags:        z.array(z.string()).optional(),
+    heroImage:   z.string().optional(),
+    draft:       z.boolean().default(false),
+  }),
+});
+
+export const collections = { guide, make, gear, milk, beans, places, blog };

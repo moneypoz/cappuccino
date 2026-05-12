@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import BlogCard   from '../../components/BlogCard.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const title         = 'Reading | cappuccino.io';
+const description   = 'Editorial writing on cappuccinos, espresso, milk technique, and the equipment that gets you there.';
+const canonicalURL  = 'https://cappuccino.io/blog';
+---
+
+<BlogLayout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogTitle="Reading — cappuccino.io"
+  ogDescription={description}
+>
+  <section class="max-w-[1100px] mx-auto px-6 pt-16 pb-8">
+    <p class="text-[12px] text-lp-green uppercase tracking-[0.18em] font-semibold mb-5">
+      Reading
+    </p>
+    <h1 class="font-lp-display font-bold text-[clamp(44px,5.5vw,72px)] leading-[1.04] -tracking-[0.015em] text-lp-ink max-w-[18ch]">
+      One drink, <em class="italic font-semibold text-lp-green">a lot</em> to say.
+    </h1>
+    <p class="text-[18px] leading-[1.55] text-lp-ink-soft mt-6 max-w-[640px]">
+      {description}
+    </p>
+  </section>
+
+  <section class="max-w-[1100px] mx-auto px-6 pb-20">
+    {posts.length === 0 ? (
+      <p class="text-lp-ink-soft text-[16px] py-12">No articles yet — check back soon.</p>
+    ) : (
+      <div class="border-t border-lp-line">
+        {posts.map((post) => (
+          <BlogCard
+            href={`/blog/${post.id}`}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</BlogLayout>

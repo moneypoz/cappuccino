@@ -1,0 +1,33 @@
+---
+interface Props {
+  href:        string;
+  title:       string;
+  description: string;
+  pubDate:     Date;
+}
+
+const { href, title, description, pubDate } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('en-US', {
+  year:  'numeric',
+  month: 'long',
+  day:   'numeric',
+});
+---
+
+<article class="py-10 border-b border-lp-line last:border-b-0">
+  <a href={href} class="group block no-underline">
+    <p class="text-[12px] text-lp-ink-mute uppercase tracking-[0.14em] font-semibold mb-3">
+      {formattedDate}
+    </p>
+    <h2 class="font-lp-display font-bold text-[clamp(28px,3vw,36px)] leading-[1.15] -tracking-[0.01em] text-lp-ink mb-3 group-hover:text-lp-green transition-colors">
+      {title}
+    </h2>
+    <p class="text-[17px] leading-[1.6] text-lp-ink-soft mb-4 max-w-[640px]">
+      {description}
+    </p>
+    <span class="text-[14px] text-lp-green font-semibold uppercase tracking-[0.12em]">
+      Read &rarr;
+    </span>
+  </a>
+</article>
